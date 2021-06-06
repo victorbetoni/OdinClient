@@ -1,4 +1,4 @@
-package net.threader.odinclient.manager;
+package net.threader.odinclient.feature;
 
 import net.threader.odinclient.feature.AbstractFeature;
 

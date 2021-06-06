@@ -1,9 +1,7 @@
 package net.threader.odinclient;
 
-import net.minecraft.client.Keyboard;
-import net.minecraft.client.input.KeyboardInput;
-import net.threader.odinclient.feature.XRayFeature;
-import net.threader.odinclient.manager.FeatureManager;
+import net.threader.odinclient.feature.hacks.XRayFeature;
+import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.manager.KeybindManager;
 import net.threader.odinclient.util.OdinUtils;
 
@@ -27,6 +25,10 @@ public enum OdinClient {
                 (file) -> keybindManager.loadKeybinds(file));
 
         featureManager.loadAll(XRayFeature.class);
+    }
+
+    public FeatureManager getFeatureManager() {
+        return featureManager;
     }
 
     public File getOdinFolder() {

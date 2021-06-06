@@ -1,5 +1,7 @@
 package net.threader.odinclient.feature;
 
+import net.threader.odinclient.OdinClient;
+
 public abstract class AbstractFeature {
     protected String id;
     protected boolean activated;
@@ -9,6 +11,10 @@ public abstract class AbstractFeature {
         this.id = id;
         this.description = description;
         this.activated = activated;
+    }
+
+    public static <T extends AbstractFeature> T instance(Class<T> clazz) {
+        return OdinClient.INSTANCE.getFeatureManager().getFeature(clazz);
     }
 
     public String getDescription() {
