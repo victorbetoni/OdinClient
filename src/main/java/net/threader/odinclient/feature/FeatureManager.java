@@ -1,7 +1,5 @@
 package net.threader.odinclient.feature;
 
-import net.threader.odinclient.feature.AbstractFeature;
-
 import java.util.HashMap;
 import java.util.Map;
 

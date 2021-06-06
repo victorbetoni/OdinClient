@@ -1,7 +1,7 @@
 package net.threader.odinclient;
 
-import net.threader.odinclient.feature.hacks.XRayFeature;
 import net.threader.odinclient.feature.FeatureManager;
+import net.threader.odinclient.feature.hacks.XRayFeature;
 import net.threader.odinclient.manager.KeybindManager;
 import net.threader.odinclient.util.OdinUtils;
 
