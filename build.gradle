@@ -30,10 +30,6 @@ processResources {
 	}
 }
 
-minecraft {
-	accessWidener = file("src/main/resources/odinclient.accesswidener")
-}
-
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = "UTF-8"
 	def targetVersion = 8
