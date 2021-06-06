@@ -2,6 +2,8 @@ package net.threader.odinclient;
 
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.input.KeyboardInput;
+import net.threader.odinclient.feature.XRayFeature;
+import net.threader.odinclient.manager.FeatureManager;
 import net.threader.odinclient.manager.KeybindManager;
 import net.threader.odinclient.util.OdinUtils;
 
@@ -16,12 +18,15 @@ public enum OdinClient {
     private File keybindsFile;
 
     private KeybindManager keybindManager = new KeybindManager();
+    private FeatureManager featureManager = new FeatureManager();
 
+    @SuppressWarnings("all")
     public void initialize() {
-        odinFolder = createIfNotExist(new File(System.getenv("APPDATA"), "wurst"), true, OdinUtils.dummyConsumer(File.class));
-        keybindsFile = createIfNotExist(new File(odinFolder, "keybinds.json"), false, (file) -> {
+        odinFolder = createIfNotExist(new File(System.getenv("APPDATA") + "\\.minecraft\\odinclient"), true, OdinUtils.dummyConsumer(File.class));
+        keybindsFile = createIfNotExist(new File(odinFolder, "keybinds.json"), false,
+                (file) -> keybindManager.loadKeybinds(file));
 
-        });
+        featureManager.loadAll(XRayFeature.class);
     }
 
     public File getOdinFolder() {
