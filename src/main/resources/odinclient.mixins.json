@@ -4,9 +4,9 @@
   "package": "net.threader.odinclient.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "KeyboardMixin"
   ],
   "client": [
-
   ],
   "injectors": {
     "defaultRequire": 1
