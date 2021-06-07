@@ -4,10 +4,11 @@
   "package": "net.threader.odinclient.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BlockRenderManagerMixin",
-    "KeyboardMixin"
   ],
   "client": [
+    "BlockRenderManagerMixin",
+    "ChatMessageC2SPacketMixin",
+    "KeyboardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-package net.threader.odinclient.api.event;
+package net.threader.odinclient.api;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;

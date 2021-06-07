@@ -1,4 +1,4 @@
-package net.threader.odinclient.api.event;
+package net.threader.odinclient.api;
 
 public interface EventListener<E extends OdinEvent> {
 }

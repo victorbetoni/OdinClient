@@ -1,7 +1,7 @@
 package net.threader.odinclient;
 
 import net.minecraft.client.MinecraftClient;
-import net.threader.odinclient.api.event.OdinEventController;
+import net.threader.odinclient.api.OdinEventController;
 import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.feature.hacks.XRayFeature;
 import net.threader.odinclient.manager.KeybindManager;;
@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 public enum OdinClient {
@@ -67,5 +66,13 @@ public enum OdinClient {
             ex.printStackTrace();
         }
         return file;
+    }
+
+    public static class Metrics {
+        private static final String odinCommandPrefix = "$odin";
+
+        public static String getOdinCommandPrefix() {
+            return odinCommandPrefix;
+        }
     }
 }
