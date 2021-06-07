@@ -21,11 +21,8 @@ public class EventProcessor {
     }
 
     public <E extends IEvent> void post(E event) {
-        System.out.println("EVENT POSTED: " + event.getClass().getName());
         Optional.of(handlers.get(event.getClass())).ifPresent(handlers -> handlers.forEach(handler -> {
-            System.out.println("HANDLER ENCONTRADO: " + handler.getClass().getName());
                     filterHandlerMethods((IEventListener<IEvent>) handler, event.getClass()).forEach(method -> {
-                        System.out.println("METODO ENCONTRADO: " + method.getDeclaringClass().getName());
                         try {
                             method.invoke(handler, event);
                         } catch (IllegalAccessException | InvocationTargetException e) {
