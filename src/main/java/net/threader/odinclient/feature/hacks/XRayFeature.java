@@ -4,6 +4,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
 import net.threader.odinclient.api.event.EventListener;
+<<<<<<< HEAD
+=======
+import net.threader.odinclient.api.event.OdinEvent;
+>>>>>>> 48c954996cd811766dffb0f3b8de43a65c782e86
 import net.threader.odinclient.feature.AbstractFeature;
 import net.threader.odinclient.feature.Feature;
 import net.threader.odinclient.listener.BlockRenderEvent;

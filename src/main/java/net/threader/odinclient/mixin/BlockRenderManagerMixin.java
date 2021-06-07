@@ -7,6 +7,11 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 import net.threader.odinclient.OdinClient;
+<<<<<<< HEAD
+=======
+import net.threader.odinclient.feature.AbstractFeature;
+import net.threader.odinclient.feature.hacks.XRayFeature;
+>>>>>>> 48c954996cd811766dffb0f3b8de43a65c782e86
 import net.threader.odinclient.listener.BlockRenderEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -16,6 +16,10 @@ public class OdinEventController {
 
     private Multimap<Class<? extends OdinEvent>, EventListener<? extends OdinEvent>> handlers = ArrayListMultimap.create();
 
+    public void register(EventListener<? extends OdinEvent> listener) {
+        handlers.put((Class<OdinEvent>) listener.getClass().getTypeParameters()[0].getClass(), listener);
+    }
+
     public <E extends OdinEvent> void post(E event) {
         Optional.of(handlers.get(event.getClass())).ifPresent(handlers -> handlers.forEach(handler ->
                 filterHandlerMethods((EventListener<OdinEvent>) handler, event.getClass()).forEach(method -> {
@@ -25,10 +29,6 @@ public class OdinEventController {
                         e.printStackTrace();
                     }
                 })));
-    }
-
-    public void register(EventListener<? extends OdinEvent> listener) {
-        handlers.put((Class<OdinEvent>) listener.getClass().getTypeParameters()[0].getClass(), listener);
     }
 
     public <E extends OdinEvent> Collection<Method> filterHandlerMethods(EventListener<OdinEvent> listener, Class<E> event) {
