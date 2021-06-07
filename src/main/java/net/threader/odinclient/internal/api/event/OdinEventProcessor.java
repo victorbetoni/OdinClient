@@ -1,4 +1,4 @@
-package net.threader.odinclient.api;
+package net.threader.odinclient.internal.api.event;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
-public class OdinEventController {
+public class OdinEventProcessor {
 
     private Multimap<Class<? extends OdinEvent>, EventListener<? extends OdinEvent>> handlers = ArrayListMultimap.create();
 
@@ -33,6 +33,8 @@ public class OdinEventController {
 
     public <E extends OdinEvent> Collection<Method> filterHandlerMethods(EventListener<OdinEvent> listener, Class<E> event) {
         return Arrays.asList(listener.getClass().getDeclaredMethods()).stream().filter(method -> method.getParameterTypes().length == 1)
-                .filter(method -> method.getParameterTypes()[0].equals(event)).collect(Collectors.toCollection(HashSet::new));
+                .filter(method -> method.getParameterTypes()[0].equals(event))
+                .filter(method -> method.getAnnotation(Handler.class) != null)
+                .collect(Collectors.toCollection(HashSet::new));
     }
 }

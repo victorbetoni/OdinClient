@@ -1,7 +1,7 @@
 package net.threader.odinclient;
 
 import net.minecraft.client.MinecraftClient;
-import net.threader.odinclient.api.OdinEventController;
+import net.threader.odinclient.internal.api.event.OdinEventProcessor;
 import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.feature.hacks.XRayFeature;
 import net.threader.odinclient.manager.KeybindManager;;
@@ -20,7 +20,7 @@ public enum OdinClient {
     private File minecraftFolder;
     private File featuresStateFile;
 
-    private OdinEventController eventController = new OdinEventController();
+    private OdinEventProcessor eventProcessor = new OdinEventProcessor();
     private KeybindManager keybindManager = new KeybindManager();
     private FeatureManager featureManager = new FeatureManager();
 
@@ -38,8 +38,8 @@ public enum OdinClient {
         return featureManager;
     }
 
-    public OdinEventController getEventController() {
-        return eventController;
+    public OdinEventProcessor getEventProcessor() {
+        return eventProcessor;
     }
 
     public File getOdinFolder() {

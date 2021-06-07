@@ -1,12 +1,12 @@
-package net.threader.odinclient.api.events;
+package net.threader.odinclient.event;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
-import net.threader.odinclient.api.Cancelable;
-import net.threader.odinclient.api.OdinEvent;
+import net.threader.odinclient.internal.api.event.Cancelable;
+import net.threader.odinclient.internal.api.event.OdinEvent;
 
 import java.util.Random;
 

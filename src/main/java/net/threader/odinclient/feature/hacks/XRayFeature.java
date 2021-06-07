@@ -3,10 +3,11 @@ package net.threader.odinclient.feature.hacks;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
-import net.threader.odinclient.api.EventListener;
+import net.threader.odinclient.internal.api.event.EventListener;
+import net.threader.odinclient.internal.api.event.Handler;
 import net.threader.odinclient.feature.AbstractFeature;
 import net.threader.odinclient.feature.Feature;
-import net.threader.odinclient.api.events.BlockRenderEvent;
+import net.threader.odinclient.event.BlockRenderEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,10 +28,12 @@ public class XRayFeature extends AbstractFeature {
 
     @Override
     public void onLoad() {
-        OdinClient.INSTANCE.getEventController().register(new BlockRenderHandler());
+        OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
     }
 
     public static class BlockRenderHandler implements EventListener<BlockRenderEvent> {
+
+        @Handler
         public void handleRender(BlockRenderEvent event) {
             if(AbstractFeature.instance(XRayFeature.class).isActivated()
                 && AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
@@ -38,5 +41,6 @@ public class XRayFeature extends AbstractFeature {
                 event.setCanceled(true);
             }
         }
+
     }
 }

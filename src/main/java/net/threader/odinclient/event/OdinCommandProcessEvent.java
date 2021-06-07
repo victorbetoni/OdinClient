@@ -1,6 +1,6 @@
-package net.threader.odinclient.api.events;
+package net.threader.odinclient.event;
 
-import net.threader.odinclient.api.OdinEvent;
+import net.threader.odinclient.internal.api.event.OdinEvent;
 
 public class OdinCommandProcessEvent implements OdinEvent {
     private String command;

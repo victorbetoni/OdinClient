@@ -7,7 +7,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 import net.threader.odinclient.OdinClient;
-import net.threader.odinclient.api.events.BlockRenderEvent;
+import net.threader.odinclient.event.BlockRenderEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +25,7 @@ public abstract class BlockRenderManagerMixin {
                         Random random, CallbackInfoReturnable<Boolean> cir) {
 
         BlockRenderEvent event = new BlockRenderEvent(state, pos, world, matrix, vertexConsumer, cull, random);
-        OdinClient.INSTANCE.getEventController().post(event);
+        OdinClient.INSTANCE.getEventProcessor().post(event);
         if(event.isCanceled()) {
             cir.cancel();
         }
