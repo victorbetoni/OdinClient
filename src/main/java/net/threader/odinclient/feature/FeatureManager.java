@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class FeatureManager {
     private Map<String, AbstractFeature> loadedFeatures = new HashMap<>();
@@ -44,5 +45,9 @@ public class FeatureManager {
 
     public <T extends AbstractFeature> T getFeature(Class<T> clazz) {
         return (T) loadedFeatures.values().stream().filter(x -> x.getClass().equals(clazz)).findFirst().get();
+    }
+
+    public <T extends AbstractFeature> Optional<T> getFeature(String id) {
+        return (Optional<T>) Optional.of(loadedFeatures.get(id));
     }
 }

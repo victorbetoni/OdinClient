@@ -1,0 +1,3 @@
+{
+  "odinclient.message.command.toggle.usage": "Usage: $odin toggle <feature-id>"
+}
