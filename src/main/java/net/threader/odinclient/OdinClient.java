@@ -1,13 +1,16 @@
 package net.threader.odinclient;
 
+import net.minecraft.client.MinecraftClient;
 import net.threader.odinclient.api.event.OdinEventController;
 import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.feature.hacks.XRayFeature;
-import net.threader.odinclient.manager.KeybindManager;
-import net.threader.odinclient.util.OdinUtils;
+import net.threader.odinclient.manager.KeybindManager;;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.function.Consumer;
 
 public enum OdinClient {
@@ -15,6 +18,7 @@ public enum OdinClient {
 
     private File odinFolder;
     private File keybindsFile;
+    private File minecraftFolder;
 
     private OdinEventController eventController = new OdinEventController();
     private KeybindManager keybindManager = new KeybindManager();
@@ -22,7 +26,8 @@ public enum OdinClient {
 
     @SuppressWarnings("all")
     public void initialize() {
-        odinFolder = createIfNotExist(new File(System.getenv("APPDATA") + "\\.minecraft\\odinclient"), true, OdinUtils.dummyConsumer(File.class));
+        minecraftFolder = MinecraftClient.getInstance().runDirectory;
+        odinFolder = createIfNotExist(new File(minecraftFolder.toPath().normalize().resolve("odinclient").toString()), true, null);
         keybindsFile = createIfNotExist(new File(odinFolder, "keybinds.json"), false,
                 (file) -> keybindManager.loadKeybinds(file));
 
@@ -51,13 +56,11 @@ public enum OdinClient {
 
     private File createIfNotExist(File file, boolean dir, Consumer<File> action) {
         try {
-            if(file.exists()) {
-                if(dir) {
-                    file.mkdirs();
-                    return file;
-                }
-                file.createNewFile();
-                return file;
+            if(!file.exists()) {
+                Path dummy = dir ? Files.createDirectories(file.toPath()) : Files.createFile(file.toPath());
+            }
+            if(action != null) {
+                action.accept(file);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
