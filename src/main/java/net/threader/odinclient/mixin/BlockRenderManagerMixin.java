@@ -5,10 +5,9 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockRenderView;
-import net.threader.odinclient.feature.AbstractFeature;
-import net.threader.odinclient.feature.hacks.XRayFeature;
+import net.threader.odinclient.OdinClient;
+import net.threader.odinclient.listener.BlockRenderEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,12 +24,11 @@ public abstract class BlockRenderManagerMixin {
                         VertexConsumer vertexConsumer, boolean cull,
                         Random random, CallbackInfoReturnable<Boolean> cir) {
 
-        if(!AbstractFeature.instance(XRayFeature.class)
-                .getVisibleBlocks().contains(Registry.BLOCK.getId(state.getBlock()))
-                && AbstractFeature.instance(XRayFeature.class).isActivated()) {
+        BlockRenderEvent event = new BlockRenderEvent(state, pos, world, matrix, vertexConsumer, cull, random);
+        OdinClient.INSTANCE.getEventController().post(event);
+        if(event.isCanceled()) {
             cir.cancel();
         }
-
     }
 
 }

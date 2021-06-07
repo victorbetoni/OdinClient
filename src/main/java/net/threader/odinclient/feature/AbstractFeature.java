@@ -28,4 +28,6 @@ public abstract class AbstractFeature {
     public boolean isActivated() {
         return activated;
     }
+
+    public void onLoad() {}
 }
