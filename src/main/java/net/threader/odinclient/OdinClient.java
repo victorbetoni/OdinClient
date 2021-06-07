@@ -1,5 +1,6 @@
 package net.threader.odinclient;
 
+import net.threader.odinclient.api.event.OdinEventController;
 import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.feature.hacks.XRayFeature;
 import net.threader.odinclient.manager.KeybindManager;
@@ -15,6 +16,7 @@ public enum OdinClient {
     private File odinFolder;
     private File keybindsFile;
 
+    private OdinEventController<?> eventController = new OdinEventController<>();
     private KeybindManager keybindManager = new KeybindManager();
     private FeatureManager featureManager = new FeatureManager();
 
@@ -25,6 +27,7 @@ public enum OdinClient {
                 (file) -> keybindManager.loadKeybinds(file));
 
         featureManager.loadAll(XRayFeature.class);
+        eventController.init();
     }
 
     public FeatureManager getFeatureManager() {
