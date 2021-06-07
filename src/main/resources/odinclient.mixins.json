@@ -6,6 +6,7 @@
   "mixins": [
   ],
   "client": [
+    "ClientPlayerEntityMixin",
     "BlockRenderManagerMixin",
     "ChatMessageC2SPacketMixin",
     "KeyboardMixin"
