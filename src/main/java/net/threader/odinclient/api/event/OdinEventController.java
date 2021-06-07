@@ -3,6 +3,8 @@ package net.threader.odinclient.api.event;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import net.minecraft.client.MinecraftClient;
+import net.threader.odinclient.util.OdinUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -47,11 +49,13 @@ public class OdinEventController<T extends OdinEvent> {
                 if(!eventQueue.isEmpty()) {
                     Optional.of(handlers.get((Class<T>) event.getClass())).ifPresent(handlers -> handlers.forEach(handler ->
                             filterHandlerMethods(handler, (Class<T>) event.getClass()).forEach(method -> {
-                                try {
-                                    method.invoke(handler, event);
-                                } catch (IllegalAccessException | InvocationTargetException e) {
-                                    e.printStackTrace();
-                                }
+                                MinecraftClient.getInstance().execute(() -> {
+                                    try {
+                                        method.invoke(handler, event);
+                                    } catch (IllegalAccessException | InvocationTargetException e) {
+                                        e.printStackTrace();
+                                    }
+                                });
                             })));
                 }
             }

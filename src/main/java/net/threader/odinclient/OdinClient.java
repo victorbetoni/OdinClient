@@ -1,5 +1,7 @@
 package net.threader.odinclient;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.server.MinecraftServer;
 import net.threader.odinclient.api.event.OdinEventController;
 import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.feature.hacks.XRayFeature;
