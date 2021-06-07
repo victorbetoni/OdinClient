@@ -36,8 +36,8 @@ public class FeatureManager {
                 Constructor<T> constructor = featureClass.getConstructor(boolean.class);
                 String id = (String) featureClass.getField("ID").get(null);
                 T feature = constructor.newInstance(stateMap.get(id));
-                System.out.println("Loading feature: " + id + " state: " + stateMap.get(id));
                 loadedFeatures.put(id, feature);
+                feature.onLoad();
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchFieldException e) {
                 e.printStackTrace();
             }
