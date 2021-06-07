@@ -5,12 +5,12 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
-import net.threader.odinclient.internal.api.event.Cancelable;
-import net.threader.odinclient.internal.api.event.OdinEvent;
+import net.threader.odinclient.internal.api.event.ICancelable;
+import net.threader.odinclient.internal.api.event.IEvent;
 
 import java.util.Random;
 
-public class BlockRenderEvent implements OdinEvent, Cancelable {
+public class BlockRenderEvent implements IEvent, ICancelable {
     private boolean canceled;
     private BlockState state;
     private BlockPos pos;

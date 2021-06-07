@@ -1,8 +1,8 @@
 package net.threader.odinclient.event;
 
-import net.threader.odinclient.internal.api.event.OdinEvent;
+import net.threader.odinclient.internal.api.event.IEvent;
 
-public class KeyPressedEvent implements OdinEvent {
+public class KeyPressedEvent implements IEvent {
     private int key;
 
     public KeyPressedEvent(int key) {

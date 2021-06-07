@@ -10,7 +10,7 @@ import net.threader.odinclient.internal.api.command.CommandRunner;
 
 import java.util.Optional;
 
-public class OdinCommands {
+public class ClientCommands {
     public static class ToggleFeatureCommand implements CommandRunner {
         @Override
         public void run(String[] args) {
