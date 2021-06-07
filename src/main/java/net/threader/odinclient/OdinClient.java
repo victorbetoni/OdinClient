@@ -19,6 +19,7 @@ public enum OdinClient {
     private File odinFolder;
     private File keybindsFile;
     private File minecraftFolder;
+    private File featuresStateFile;
 
     private OdinEventController eventController = new OdinEventController();
     private KeybindManager keybindManager = new KeybindManager();
@@ -28,10 +29,10 @@ public enum OdinClient {
     public void initialize() {
         minecraftFolder = MinecraftClient.getInstance().runDirectory;
         odinFolder = createIfNotExist(new File(minecraftFolder.toPath().normalize().resolve("odinclient").toString()), true, null);
+        featuresStateFile = createIfNotExist(new File(odinFolder, "features.json"), false,
+                (file) -> featureManager.loadAll(file, XRayFeature.class));
         keybindsFile = createIfNotExist(new File(odinFolder, "keybinds.json"), false,
                 (file) -> keybindManager.loadKeybinds(file));
-
-        featureManager.loadAll(XRayFeature.class);
     }
 
     public FeatureManager getFeatureManager() {
