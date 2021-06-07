@@ -36,6 +36,8 @@ public enum OdinClient {
         keybindsFile = createIfNotExist(new File(odinFolder, "keybinds.json"), false,
                 (file) -> keybindManager.loadKeybinds(file));
 
+        eventProcessor.register(new CommandProcessor.Distributor());
+
         commandProcessor.COMMAND_REGISTRY.put("toggle", new ClientCommands.ToggleFeatureCommand());
     }
 

@@ -31,7 +31,11 @@ public class XRayFeature extends AbstractFeature {
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
     }
 
-    public static class BlockRenderHandler implements IEventListener<BlockRenderEvent> {
+    public static class BlockRenderHandler extends IEventListener<BlockRenderEvent> {
+
+        public BlockRenderHandler() {
+            super(BlockRenderEvent.class);
+        }
 
         @Handler
         public void handleRender(BlockRenderEvent event) {

@@ -17,18 +17,22 @@ public class EventProcessor {
     private Multimap<Class<? extends IEvent>, IEventListener<? extends IEvent>> handlers = ArrayListMultimap.create();
 
     public void register(IEventListener<? extends IEvent> listener) {
-        handlers.put((Class<? extends IEvent>) listener.getClass().getTypeParameters()[0].getClass(), listener);
+        handlers.put(listener.getListenedEvent(), listener);
     }
 
     public <E extends IEvent> void post(E event) {
-        Optional.of(handlers.get(event.getClass())).ifPresent(handlers -> handlers.forEach(handler ->
-                filterHandlerMethods((IEventListener<IEvent>) handler, event.getClass()).forEach(method -> {
-                    try {
-                        method.invoke(handler, event);
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                })));
+        System.out.println("EVENT POSTED: " + event.getClass().getName());
+        Optional.of(handlers.get(event.getClass())).ifPresent(handlers -> handlers.forEach(handler -> {
+            System.out.println("HANDLER ENCONTRADO: " + handler.getClass().getName());
+                    filterHandlerMethods((IEventListener<IEvent>) handler, event.getClass()).forEach(method -> {
+                        System.out.println("METODO ENCONTRADO: " + method.getDeclaringClass().getName());
+                        try {
+                            method.invoke(handler, event);
+                        } catch (IllegalAccessException | InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }));
     }
 
     public <E extends IEvent> Collection<Method> filterHandlerMethods(IEventListener<IEvent> listener, Class<E> event) {

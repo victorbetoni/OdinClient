@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class FeatureManager {
-    private Map<String, AbstractFeature> loadedFeatures = new HashMap<>();
+    private final Map<String, AbstractFeature> loadedFeatures = new HashMap<>();
 
     @SafeVarargs
     @SuppressWarnings("unchecked")
@@ -36,6 +36,7 @@ public class FeatureManager {
                 Constructor<T> constructor = featureClass.getConstructor(boolean.class);
                 String id = (String) featureClass.getField("ID").get(null);
                 T feature = constructor.newInstance(stateMap.get(id));
+                System.out.println("Loading feature: " + id + " state: " + stateMap.get(id));
                 loadedFeatures.put(id, feature);
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchFieldException e) {
                 e.printStackTrace();
@@ -48,6 +49,6 @@ public class FeatureManager {
     }
 
     public <T extends AbstractFeature> Optional<T> getFeature(String id) {
-        return (Optional<T>) Optional.of(loadedFeatures.get(id));
+        return (Optional<T>) Optional.ofNullable(loadedFeatures.get(id));
     }
 }

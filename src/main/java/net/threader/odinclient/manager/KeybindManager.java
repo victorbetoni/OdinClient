@@ -22,11 +22,10 @@ public class KeybindManager {
         try (FileReader reader = new FileReader(file)) {
             keybindMap.clear();
             JSONObject jsonResources = (JSONObject) new JSONParser().parse(reader);
-            JSONArray binds = (JSONArray) jsonResources.get("binds");
-            binds.forEach(obj -> {
-                int key = (int) ((JSONObject) obj).get("key");
-                String command = (String) ((JSONObject) obj).get("exec");
-                keybindMap.put(key, command);
+            jsonResources.keySet().forEach(obj -> {
+                String key = (String) (jsonResources).get(obj);
+                String command = (String) jsonResources.get(key);
+                keybindMap.put(Integer.parseInt(key), command);
             });
 
         } catch (IOException | ParseException ex) {

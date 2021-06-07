@@ -8,7 +8,6 @@
   "client": [
     "ClientPlayerEntityMixin",
     "BlockRenderManagerMixin",
-    "ChatMessageC2SPacketMixin",
     "KeyboardMixin"
   ],
   "injectors": {
