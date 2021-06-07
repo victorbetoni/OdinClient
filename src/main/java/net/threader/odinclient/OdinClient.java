@@ -1,11 +1,5 @@
 package net.threader.odinclient;
 
-<<<<<<< HEAD
-=======
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.server.MinecraftServer;
-import net.threader.odinclient.api.event.OdinEvent;
->>>>>>> 48c954996cd811766dffb0f3b8de43a65c782e86
 import net.threader.odinclient.api.event.OdinEventController;
 import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.feature.hacks.XRayFeature;
@@ -33,7 +27,6 @@ public enum OdinClient {
                 (file) -> keybindManager.loadKeybinds(file));
 
         featureManager.loadAll(XRayFeature.class);
-        eventController.init();
     }
 
     public FeatureManager getFeatureManager() {
