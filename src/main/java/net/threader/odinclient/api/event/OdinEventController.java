@@ -17,7 +17,7 @@ public class OdinEventController {
     private Multimap<Class<? extends OdinEvent>, EventListener<? extends OdinEvent>> handlers = ArrayListMultimap.create();
 
     public void register(EventListener<? extends OdinEvent> listener) {
-        handlers.put((Class<OdinEvent>) listener.getClass().getTypeParameters()[0].getClass(), listener);
+        handlers.put((Class<? extends OdinEvent>) listener.getClass().getTypeParameters()[0].getClass(), listener);
     }
 
     public <E extends OdinEvent> void post(E event) {
