@@ -4,11 +4,12 @@
   "package": "net.threader.odinclient.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BlockRenderManagerMixin",
+    "ClientPlayerEntityMixin",
+    "KeyboardMixin",
+    "RebuildTaskMixin"
   ],
   "client": [
-    "ClientPlayerEntityMixin",
-    "BlockRenderManagerMixin",
-    "KeyboardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

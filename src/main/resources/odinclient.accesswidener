@@ -1,0 +1,9 @@
+accessWidener    v1    named
+accessible  class   net/minecraft/client/render/chunk/ChunkBuilder$BuiltChunk$RebuildTask
+accessible  class   net/minecraft/client/render/chunk/ChunkBuilder$BuiltChunk$Task
+accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    empty   Z
+accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    initializedLayers   Ljava/util/Set;
+accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    nonEmptyLayers  Ljava/util/Set;
+accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    bufferState  Lnet/minecraft/client/render/BufferBuilder$State;
+accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    occlusionGraph  Lnet/minecraft/client/render/chunk/ChunkOcclusionData;
+accessible  method  net/minecraft/client/render/chunk/ChunkBuilder$BuiltChunk   beginBufferBuilding (Lnet/minecraft/client/render/BufferBuilder;)V

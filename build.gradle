@@ -38,6 +38,10 @@ tasks.withType(JavaCompile).configureEach {
 	}
 }
 
+minecraft {
+	accessWidener =  file("src/main/resources/odinclient.accesswidener")
+}
+
 java {
 	withSourcesJar()
 }

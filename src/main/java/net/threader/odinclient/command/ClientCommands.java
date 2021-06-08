@@ -23,6 +23,7 @@ public class ClientCommands {
             String featureId = args[0];
             Optional<AbstractFeature> feature = OdinClient.INSTANCE.getFeatureManager().getFeature(featureId);
             feature.ifPresent(abstractFeature -> abstractFeature.setActivated(!abstractFeature.isActivated()));
+            
         }
     }
 }
