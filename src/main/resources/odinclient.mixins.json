@@ -7,11 +7,12 @@
     "BlockRenderManagerMixin",
     "ClientPlayerEntityMixin",
     "KeyboardMixin",
-    "RebuildTaskMixin"
+    "TerrainRenderContextMixin"
   ],
   "client": [
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "priority": 1001
 }

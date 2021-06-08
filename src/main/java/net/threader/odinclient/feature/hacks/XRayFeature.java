@@ -1,14 +1,12 @@
 package net.threader.odinclient.feature.hacks;
 
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
 import net.threader.odinclient.event.BlockModelRenderEvent;
 import net.threader.odinclient.internal.api.event.IEventListener;
 import net.threader.odinclient.internal.api.event.Handler;
 import net.threader.odinclient.feature.AbstractFeature;
 import net.threader.odinclient.feature.Feature;
-import net.threader.odinclient.event.BlockRenderEvent;
 
 import java.util.HashSet;
 import java.util.Set;
