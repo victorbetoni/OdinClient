@@ -4,7 +4,6 @@
   "package": "net.threader.odinclient.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BlockRenderManagerMixin",
     "ClientPlayerEntityMixin",
     "KeyboardMixin",
     "TerrainRenderContextMixin"

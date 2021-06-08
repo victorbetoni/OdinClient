@@ -1,8 +1,9 @@
 package net.threader.odinclient.feature.hacks;
 
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
-import net.threader.odinclient.event.BlockModelRenderEvent;
+import net.threader.odinclient.event.BlockTesselateEvent;
 import net.threader.odinclient.internal.api.event.IEventListener;
 import net.threader.odinclient.internal.api.event.Handler;
 import net.threader.odinclient.feature.AbstractFeature;
@@ -30,17 +31,17 @@ public class XRayFeature extends AbstractFeature {
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
     }
 
-    public static class BlockRenderHandler extends IEventListener<BlockModelRenderEvent> {
+    public static class BlockRenderHandler extends IEventListener<BlockTesselateEvent> {
 
         public BlockRenderHandler() {
-            super(BlockModelRenderEvent.class);
+            super(BlockTesselateEvent.class);
         }
 
         @Handler
-        public void handleRender(BlockModelRenderEvent event) {
+        public void handleRender(BlockTesselateEvent event) {
             if(AbstractFeature.instance(XRayFeature.class).isActivated()
-                /*&& AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
-                    .contains(Registry.BLOCK.getId(event.getState().getBlock()))*/) {
+                    && AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
+                    .contains(Registry.BLOCK.getId(event.getState().getBlock()))) {
                 event.setCanceled(true);
             }
         }
