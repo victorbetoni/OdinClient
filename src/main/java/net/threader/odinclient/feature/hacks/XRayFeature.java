@@ -46,17 +46,17 @@ public class XRayFeature extends ConfigurableAbstractFeature {
 
     @Override
     public void onLoad() {
-        configurationFile = OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray_blocks.json"), false,
-                this::read,
+        configurationFile = OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray.json"), false,
+                null,
                 (file) -> {
                     visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
                             .map(entry -> entry.getKey().getValue().toString())
                             .filter(identifier -> identifier.contains("ore"))
                             .collect(Collectors.toSet()));
-                    this.save(file);
                 });
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
         this.save();
+        this.read();
     }
 
     @Override
