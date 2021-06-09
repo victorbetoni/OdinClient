@@ -71,7 +71,7 @@ public class XRayFeature extends AbstractFeature {
         @Handler
         public void handleRender(BlockTesselateEvent event) {
             if(AbstractFeature.instance(XRayFeature.class).isActivated()
-                    && AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
+                    && !AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getState().getBlock()).toString())) {
                 event.setCanceled(true);
             }
