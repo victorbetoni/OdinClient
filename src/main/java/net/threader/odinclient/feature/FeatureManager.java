@@ -1,7 +1,5 @@
 package net.threader.odinclient.feature;
 
-import net.threader.odinclient.feature.hacks.XRayFeature;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

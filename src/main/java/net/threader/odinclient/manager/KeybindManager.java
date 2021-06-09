@@ -1,7 +1,6 @@
 package net.threader.odinclient.manager;
 
 import net.minecraft.client.MinecraftClient;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

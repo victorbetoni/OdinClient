@@ -4,9 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,9 +12,9 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 public class EventProcessor {
 
-    private Multimap<Class<? extends IEvent>, IEventListener<? extends IEvent>> handlers = ArrayListMultimap.create();
+    private Multimap<Class<? extends IEvent>, EventListener<? extends IEvent>> handlers = ArrayListMultimap.create();
 
-    public void register(IEventListener<? extends IEvent> listener) {
+    public void register(EventListener<? extends IEvent> listener) {
         handlers.put(listener.getListenedEvent(), listener);
     }
 

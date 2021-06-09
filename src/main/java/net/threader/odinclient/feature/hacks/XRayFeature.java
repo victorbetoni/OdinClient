@@ -3,7 +3,7 @@ package net.threader.odinclient.feature.hacks;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
 import net.threader.odinclient.event.BlockTesselateEvent;
-import net.threader.odinclient.internal.api.event.IEventListener;
+import net.threader.odinclient.internal.api.event.EventListener;
 import net.threader.odinclient.internal.api.event.Handler;
 import net.threader.odinclient.feature.AbstractFeature;
 import net.threader.odinclient.feature.Feature;
@@ -62,7 +62,7 @@ public class XRayFeature extends AbstractFeature {
         }
     }
 
-    public static class BlockRenderHandler extends IEventListener<BlockTesselateEvent> {
+    public static class BlockRenderHandler extends EventListener<BlockTesselateEvent> {
 
         public BlockRenderHandler() {
             super(BlockTesselateEvent.class);
