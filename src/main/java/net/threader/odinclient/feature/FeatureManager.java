@@ -32,11 +32,13 @@ public class FeatureManager {
         Arrays.asList(features).forEach(featureClass -> {
             try {
                 Constructor<T> constructor = featureClass.getConstructor(boolean.class);
-                String id = (String) featureClass.getField("ID").get(null);
-                T feature = constructor.newInstance(stateMap.get(id));
-                loadedFeatures.put(id, feature);
-                feature.onLoad();
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchFieldException e) {
+                Feature featureAnnotation = featureClass.getAnnotation(Feature.class);
+                if(featureAnnotation != null) {
+                    T feature = constructor.newInstance(stateMap.get(featureAnnotation.id()));
+                    loadedFeatures.put(featureAnnotation.id(), feature);
+                    feature.onLoad();
+                }
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
         });
