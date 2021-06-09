@@ -55,8 +55,8 @@ public class XRayFeature extends ConfigurableAbstractFeature {
                             .collect(Collectors.toSet()));
                 });
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
-        this.save();
         this.read();
+        this.save();
     }
 
     @Override
@@ -72,8 +72,8 @@ public class XRayFeature extends ConfigurableAbstractFeature {
     public void read(File config) {
         try (FileReader reader = new FileReader(config)) {
             JSONObject jsonResources = (JSONObject) new JSONParser().parse(reader);
-            JSONArray visibleBlocks = (JSONArray) jsonResources.get("visible");
-            visibleBlocks.forEach(block -> visibleBlocks.add((String) block));
+            JSONArray visibleBlocksArray = (JSONArray) jsonResources.get("visible");
+            visibleBlocksArray.forEach(block -> visibleBlocks.add((String) block));
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
