@@ -21,6 +21,7 @@ public enum OdinClient {
     private File keybindsFile;
     private File minecraftFolder;
     private File featuresStateFile;
+    private File featureConfigFolder;
 
     private CommandProcessor commandProcessor = new CommandProcessor();
     private EventProcessor eventProcessor = new EventProcessor();
@@ -30,11 +31,12 @@ public enum OdinClient {
     @SuppressWarnings("all")
     public void initialize() {
         minecraftFolder = MinecraftClient.getInstance().runDirectory;
-        odinFolder = createIfNotExist(new File(minecraftFolder.toPath().normalize().resolve("odinclient").toString()), true, null);
+        odinFolder = createIfNotExist(new File(minecraftFolder.toPath().normalize().resolve("odinclient").toString()), true, null, null);
+        featureConfigFolder = createIfNotExist(new File(odinFolder, "configs"), true, null, null);
         featuresStateFile = createIfNotExist(new File(odinFolder, "features.json"), false,
-                (file) -> featureManager.loadAll(file, XRayFeature.class));
+                (file) -> featureManager.loadAll(file, XRayFeature.class), null);
         keybindsFile = createIfNotExist(new File(odinFolder, "keybinds.json"), false,
-                (file) -> keybindManager.loadKeybinds(file));
+                (file) -> keybindManager.loadKeybinds(file), null);
 
         eventProcessor.register(new CommandProcessor.Distributor());
 
@@ -65,10 +67,17 @@ public enum OdinClient {
         return keybindManager;
     }
 
-    private File createIfNotExist(File file, boolean dir, Consumer<File> action) {
+    public File getFeatureConfigFolder() {
+        return featureConfigFolder;
+    }
+
+    public File createIfNotExist(File file, boolean dir, Consumer<File> action, Consumer<File> ifNotExist) {
         try {
             if(!file.exists()) {
                 Path dummy = dir ? Files.createDirectories(file.toPath()) : Files.createFile(file.toPath());
+                if(ifNotExist != null) {
+                    ifNotExist.accept(file);
+                }
             }
             if(action != null) {
                 action.accept(file);
