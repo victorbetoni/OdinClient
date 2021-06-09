@@ -12,6 +12,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -41,12 +43,18 @@ public class XRayFeature extends AbstractFeature {
 
     @Override
     public void onLoad() {
-        OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray_blocks.json"), false, (file) -> {
-            visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
+        OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray_blocks.json"), false,
+                (file) -> visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
                     .map(entry -> entry.getKey().getValue().toString())
                     .filter(identifier -> identifier.contains("ore"))
-                    .collect(Collectors.toSet()));
-        }, null);
+                    .collect(Collectors.toSet())),
+                (file) -> {
+                    try (FileWriter writer = new FileWriter(file)) {
+                        writer.write(BLOCKS_JSON_FACTORY.get().toJSONString());
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                };
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
     }
 
