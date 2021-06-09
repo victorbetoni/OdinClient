@@ -21,21 +21,16 @@ public class EventProcessor {
     }
 
     public <E extends IEvent> void post(E event) {
-        Optional.of(handlers.get(event.getClass())).ifPresent(handlers -> handlers.forEach(handler -> {
-                    filterHandlerMethods((IEventListener<IEvent>) handler, event.getClass()).forEach(method -> {
-                        try {
-                            method.invoke(handler, event);
-                        } catch (IllegalAccessException | InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    });
-                }));
-    }
-
-    public <E extends IEvent> Collection<Method> filterHandlerMethods(IEventListener<IEvent> listener, Class<E> event) {
-        return Arrays.asList(listener.getClass().getDeclaredMethods()).stream().filter(method -> method.getParameterTypes().length == 1)
-                .filter(method -> method.getParameterTypes()[0].equals(event))
-                .filter(method -> method.getAnnotation(Handler.class) != null)
-                .collect(Collectors.toCollection(HashSet::new));
+        Optional.of(handlers.get(event.getClass())).ifPresent(handlers -> handlers.forEach(handler ->
+                Arrays.stream(handler.getClass().getDeclaredMethods()).filter(method -> method.getParameterTypes().length == 1)
+                        .filter(method -> method.getParameterTypes()[0].equals(event.getClass()))
+                        .filter(method -> method.getAnnotation(Handler.class) != null)
+                        .collect(Collectors.toCollection(HashSet::new)).forEach(method -> {
+                            try {
+                                method.invoke(handler, event);
+                            } catch (IllegalAccessException | InvocationTargetException e) {
+                                e.printStackTrace();
+                            }
+                        })));
     }
 }

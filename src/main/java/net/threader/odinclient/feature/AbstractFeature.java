@@ -34,4 +34,6 @@ public abstract class AbstractFeature {
     }
 
     public void onLoad() {}
+
+    public void reload() {}
 }

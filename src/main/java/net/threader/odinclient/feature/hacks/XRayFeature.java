@@ -1,6 +1,5 @@
 package net.threader.odinclient.feature.hacks;
 
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
 import net.threader.odinclient.event.BlockTesselateEvent;
@@ -24,6 +23,7 @@ import java.util.stream.Collectors;
 public class XRayFeature extends AbstractFeature {
 
     public static final String ID = "xray";
+    private File configFile;
     private final Set<String> visibleBlocks = new HashSet<>();
     private final Supplier<JSONObject> BLOCKS_JSON_FACTORY = () -> {
         JSONObject jsonObject = new JSONObject();
@@ -43,19 +43,22 @@ public class XRayFeature extends AbstractFeature {
 
     @Override
     public void onLoad() {
-        OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray_blocks.json"), false,
+        configFile = OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray_blocks.json"), false,
+                (file) -> this.reload(),
                 (file) -> visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
-                    .map(entry -> entry.getKey().getValue().toString())
-                    .filter(identifier -> identifier.contains("ore"))
-                    .collect(Collectors.toSet())),
-                (file) -> {
-                    try (FileWriter writer = new FileWriter(file)) {
-                        writer.write(BLOCKS_JSON_FACTORY.get().toJSONString());
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                };
+                        .map(entry -> entry.getKey().getValue().toString())
+                        .filter(identifier -> identifier.contains("ore"))
+                        .collect(Collectors.toSet())));
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
+    }
+
+    @Override
+    public void reload() {
+        try (FileWriter writer = new FileWriter(configFile)) {
+            writer.write(BLOCKS_JSON_FACTORY.get().toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static class BlockRenderHandler extends IEventListener<BlockTesselateEvent> {
