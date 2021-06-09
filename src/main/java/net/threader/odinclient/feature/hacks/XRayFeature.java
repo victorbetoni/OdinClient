@@ -44,12 +44,13 @@ public class XRayFeature extends AbstractFeature {
     @Override
     public void onLoad() {
         configFile = OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray_blocks.json"), false,
-                (file) -> this.reload(),
+                null,
                 (file) -> visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
                         .map(entry -> entry.getKey().getValue().toString())
                         .filter(identifier -> identifier.contains("ore"))
                         .collect(Collectors.toSet())));
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
+        this.reload();
     }
 
     @Override
