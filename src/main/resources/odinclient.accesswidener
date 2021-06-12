@@ -6,4 +6,7 @@ accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    
 accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    nonEmptyLayers  Ljava/util/Set;
 accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    bufferState  Lnet/minecraft/client/render/BufferBuilder$State;
 accessible  field   net/minecraft/client/render/chunk/ChunkBuilder$ChunkData    occlusionGraph  Lnet/minecraft/client/render/chunk/ChunkOcclusionData;
+accessible  field   net/minecraft/client/render/chunk/ChunkOcclusionDataBuilder    openCount  I
+accessible  field   net/minecraft/client/render/chunk/ChunkOcclusionDataBuilder    closed  Ljava/util/BitSet;
+accessible  method  net/minecraft/client/render/chunk/ChunkOcclusionDataBuilder    pack (Lnet/minecraft/util/math/BlockPos;)I
 accessible  method  net/minecraft/client/render/chunk/ChunkBuilder$BuiltChunk   beginBufferBuilding (Lnet/minecraft/client/render/BufferBuilder;)V

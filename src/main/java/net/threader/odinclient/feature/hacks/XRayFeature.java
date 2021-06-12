@@ -1,8 +1,17 @@
 package net.threader.odinclient.feature.hacks;
 
+import net.fabricmc.fabric.impl.client.keybinding.KeyBindingRegistryImpl;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.options.KeyBinding;
+import net.minecraft.data.server.FishingLootTableGenerator;
+import net.minecraft.item.FishingRodItem;
+import net.minecraft.network.listener.ServerLoginPacketListener;
+import net.minecraft.network.packet.s2c.play.CloseScreenS2CPacket;
+import net.minecraft.network.packet.s2c.play.WorldBorderS2CPacket;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
 import net.threader.odinclient.event.BlockTesselateEvent;
+import net.threader.odinclient.event.BlockTraluscenscyDefineEvent;
 import net.threader.odinclient.feature.ConfigurableAbstractFeature;
 import net.threader.odinclient.internal.api.event.EventListener;
 import net.threader.odinclient.internal.api.event.Handler;
@@ -48,15 +57,18 @@ public class XRayFeature extends ConfigurableAbstractFeature {
     public void onLoad() {
         configurationFile = OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray.json"), false,
                 null,
-                (file) -> {
-                    visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
-                            .map(entry -> entry.getKey().getValue().toString())
-                            .filter(identifier -> identifier.contains("ore"))
-                            .collect(Collectors.toSet()));
-                });
+                (file) -> visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
+                        .map(entry -> entry.getKey().getValue().toString())
+                        .filter(identifier -> identifier.contains("ore"))
+                        .collect(Collectors.toSet())));
         OdinClient.INSTANCE.getEventProcessor().register(new BlockRenderHandler());
         this.read();
         this.save();
+    }
+
+    @Override
+    public void reload() {
+        MinecraftClient.getInstance().worldRenderer.reload();
     }
 
     @Override
@@ -90,6 +102,15 @@ public class XRayFeature extends ConfigurableAbstractFeature {
             if(AbstractFeature.instance(XRayFeature.class).isActivated()
                     && !AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getState().getBlock()).toString())) {
+                event.setCanceled(true);
+            }
+        }
+
+        @Handler
+        public void handleOpacity(BlockTraluscenscyDefineEvent event) {
+            if(AbstractFeature.instance(XRayFeature.class).isActivated()
+                    && !AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
+                    .contains(Registry.BLOCK.getId(event.getBlock()).toString())) {
                 event.setCanceled(true);
             }
         }
