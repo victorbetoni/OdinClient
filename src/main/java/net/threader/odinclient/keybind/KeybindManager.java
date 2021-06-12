@@ -1,6 +1,9 @@
 package net.threader.odinclient.keybind;
 
 import net.minecraft.client.MinecraftClient;
+import net.threader.odinclient.event.KeyPressedEvent;
+import net.threader.odinclient.internal.api.event.EventListener;
+import net.threader.odinclient.internal.api.event.Handler;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,9 +16,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public class KeybindManager {
+public class KeybindManager extends EventListener<KeyPressedEvent> {
 
     private Map<Integer, String> keybindMap = new HashMap<>();
+
+    public KeybindManager() {
+        super(KeyPressedEvent.class);
+    }
 
     public void loadKeybinds(File file) {
         try (FileReader reader = new FileReader(file)) {
@@ -32,10 +39,11 @@ public class KeybindManager {
         }
     }
 
-    public void onKey(int keyCode) {
-        getCommand(keyCode).ifPresent(x -> {
+    @Handler
+    public void onKey(KeyPressedEvent event) {
+        getCommand(event.getKey()).ifPresent(x -> {
             Objects.requireNonNull(MinecraftClient.getInstance().player, "Player cannot be null");
-            MinecraftClient.getInstance().player.sendChatMessage("/" + x);
+            MinecraftClient.getInstance().player.sendChatMessage(x);
         });
     }
 

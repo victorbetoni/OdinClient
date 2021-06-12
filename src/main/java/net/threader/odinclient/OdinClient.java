@@ -39,6 +39,7 @@ public enum OdinClient {
                 (file) -> keybindManager.loadKeybinds(file), null);
 
         eventProcessor.register(new CommandProcessor.Distributor());
+        eventProcessor.register(keybindManager);
 
         commandProcessor.COMMAND_REGISTRY.put("toggle", new ClientCommands.ToggleFeatureCommand());
     }

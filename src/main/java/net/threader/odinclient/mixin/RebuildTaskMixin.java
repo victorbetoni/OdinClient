@@ -20,7 +20,6 @@ import java.util.Objects;
 public class RebuildTaskMixin {
     @Shadow @Nullable protected ChunkRendererRegion region;
 
-
     @Redirect(method = "render",
             at = @At(value = "HEAD", target = "Lnet/minecraft/client/render/chunk;markClosed(Lnet/minecraft/util/math/BlockPos;)V"))
     public void render(BlockPos pos) {
