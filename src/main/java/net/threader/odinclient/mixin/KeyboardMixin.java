@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Keyboard.class)
 public class KeyboardMixin {
-
     @Inject(method = "onKey", at = @At("TAIL"))
     public void onKey(long window, int key, int scancode, int i, int j, CallbackInfo ci) {
         OdinClient.INSTANCE.getKeybindManager().onKey(key);

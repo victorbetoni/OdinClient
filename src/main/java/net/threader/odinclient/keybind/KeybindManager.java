@@ -1,4 +1,4 @@
-package net.threader.odinclient.manager;
+package net.threader.odinclient.keybind;
 
 import net.minecraft.client.MinecraftClient;
 import org.json.simple.JSONObject;

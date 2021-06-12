@@ -1,18 +1,12 @@
 package net.threader.odinclient.feature.hacks;
 
-import net.fabricmc.fabric.impl.client.keybinding.KeyBindingRegistryImpl;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.options.KeyBinding;
-import net.minecraft.data.server.FishingLootTableGenerator;
-import net.minecraft.item.FishingRodItem;
-import net.minecraft.network.listener.ServerLoginPacketListener;
-import net.minecraft.network.packet.s2c.play.CloseScreenS2CPacket;
-import net.minecraft.network.packet.s2c.play.WorldBorderS2CPacket;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
 import net.threader.odinclient.event.BlockTesselateEvent;
 import net.threader.odinclient.event.BlockTraluscenscyDefineEvent;
 import net.threader.odinclient.feature.ConfigurableAbstractFeature;
+import net.threader.odinclient.keybind.Keybindable;
 import net.threader.odinclient.internal.api.event.EventListener;
 import net.threader.odinclient.internal.api.event.Handler;
 import net.threader.odinclient.feature.AbstractFeature;
@@ -21,6 +15,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
 import java.io.FileReader;
@@ -33,7 +28,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 @Feature(id = XRayFeature.ID)
-public class XRayFeature extends ConfigurableAbstractFeature {
+public class XRayFeature extends ConfigurableAbstractFeature implements Keybindable {
 
     public static final String ID = "xray";
     private final Set<String> visibleBlocks = new HashSet<>();
@@ -89,6 +84,16 @@ public class XRayFeature extends ConfigurableAbstractFeature {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int getKey() {
+        return GLFW.GLFW_KEY_X;
+    }
+
+    @Override
+    public String onKey() {
+        return "$odinclient toggle " + ID;
     }
 
     public static class BlockRenderHandler extends EventListener<BlockTesselateEvent> {
