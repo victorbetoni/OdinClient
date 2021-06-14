@@ -1,6 +1,7 @@
 package net.threader.odinclient.mixin;
 
 import net.minecraft.client.Keyboard;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.threader.odinclient.OdinClient;
 import net.threader.odinclient.event.KeyPressedEvent;
 import org.spongepowered.asm.mixin.Mixin;

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BlockModelRendererMixin",
+    "ClientConnectionMixin",
     "ClientPlayerEntityMixin",
     "KeyboardMixin",
     "RebuildTaskMixin",
@@ -14,6 +15,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "priority": 1001
+  }
 }
