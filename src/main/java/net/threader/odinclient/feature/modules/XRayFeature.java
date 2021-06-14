@@ -1,4 +1,4 @@
-package net.threader.odinclient.feature.hacks;
+package net.threader.odinclient.feature.modules;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.registry.Registry;

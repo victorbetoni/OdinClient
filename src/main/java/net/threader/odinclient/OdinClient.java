@@ -5,7 +5,7 @@ import net.threader.odinclient.command.ClientCommands;
 import net.threader.odinclient.internal.api.command.CommandProcessor;
 import net.threader.odinclient.internal.api.event.EventProcessor;
 import net.threader.odinclient.feature.FeatureManager;
-import net.threader.odinclient.feature.hacks.XRayFeature;
+import net.threader.odinclient.feature.modules.XRayFeature;
 import net.threader.odinclient.keybind.KeybindManager;;
 
 import java.io.File;
