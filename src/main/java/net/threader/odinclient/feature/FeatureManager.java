@@ -1,5 +1,8 @@
 package net.threader.odinclient.feature;
 
+import net.threader.odinclient.OdinClient;
+import net.threader.odinclient.keybind.KeybindManager;
+import net.threader.odinclient.keybind.Keybindable;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -36,6 +39,10 @@ public class FeatureManager {
                 if(featureAnnotation != null) {
                     T feature = constructor.newInstance(stateMap.get(featureAnnotation.id()));
                     loadedFeatures.put(featureAnnotation.id(), feature);
+                    if(feature instanceof Keybindable) {
+                        Keybindable bindable = (Keybindable) feature;
+                        OdinClient.INSTANCE.getKeybindManager().register(bindable.getKey(), bindable.onKey());
+                    }
                     feature.onLoad();
                 }
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {

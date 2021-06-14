@@ -1,5 +1,6 @@
 package net.threader.odinclient.mixin;
 
+import net.fabricmc.fabric.mixin.client.indigo.renderer.MixinBlockModelRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.chunk.ChunkBuilder;
 import net.minecraft.client.render.chunk.ChunkOcclusionDataBuilder;
@@ -20,7 +21,7 @@ public class RebuildTaskMixin {
     @Shadow @Nullable protected ChunkRendererRegion region;
 
     @Redirect(method = "render", remap = false, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/chunk/ChunkOcclusionDataBuilder;markClosed(Lnet/minecraft/util/math/BlockPos;)V"))
-    public void render(ChunkOcclusionDataBuilder chunkOcclusionDataBuilder, BlockPos pos) {
+    public void hookRender(ChunkOcclusionDataBuilder chunkOcclusionDataBuilder, BlockPos pos) {
         ChunkRendererRegion region = this.region;
         if(region != null) {
             Block block = Objects.requireNonNull(region.getBlockEntity(pos)).getCachedState().getBlock();

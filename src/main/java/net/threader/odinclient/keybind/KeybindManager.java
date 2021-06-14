@@ -47,6 +47,10 @@ public class KeybindManager extends EventListener<KeyPressedEvent> {
         });
     }
 
+    public void register(int key, String command) {
+        keybindMap.put(key, command);
+    }
+
     private Optional<String> getCommand(int key) {
         return Optional.ofNullable(keybindMap.get(key));
     }
