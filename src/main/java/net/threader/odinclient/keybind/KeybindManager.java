@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public class KeybindManager extends EventListener<KeyPressedEvent> {
+public class KeybindManager extends EventListener {
 
     private Map<Integer, String> keybindMap = new HashMap<>();
 

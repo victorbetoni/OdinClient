@@ -14,7 +14,7 @@ public class CommandProcessor {
 
     public static final Map<String, CommandRunner> COMMAND_REGISTRY = new HashMap<>();
 
-    public static class Distributor extends EventListener<CommandProcessEvent> {
+    public static class Distributor extends EventListener {
         public Distributor() {
             super(CommandProcessEvent.class);
         }

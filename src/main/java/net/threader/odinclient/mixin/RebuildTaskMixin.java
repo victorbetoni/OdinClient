@@ -7,7 +7,7 @@ import net.minecraft.client.render.chunk.ChunkOcclusionDataBuilder;
 import net.minecraft.client.render.chunk.ChunkRendererRegion;
 import net.minecraft.util.math.BlockPos;
 import net.threader.odinclient.OdinClient;
-import net.threader.odinclient.event.BlockTraluscenscyDefineEvent;
+import net.threader.odinclient.event.BlockTranslucencyDefineEvent;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,7 +25,7 @@ public class RebuildTaskMixin {
         ChunkRendererRegion region = this.region;
         if(region != null) {
             Block block = Objects.requireNonNull(region.getBlockEntity(pos)).getCachedState().getBlock();
-            BlockTraluscenscyDefineEvent event = new BlockTraluscenscyDefineEvent(block);
+            BlockTranslucencyDefineEvent event = new BlockTranslucencyDefineEvent(block);
             OdinClient.INSTANCE.getEventProcessor().post(event);
             if(!event.isCanceled()) {
                 chunkOcclusionDataBuilder.closed.set(ChunkOcclusionDataBuilder.pack(pos), true);
