@@ -1,13 +1,14 @@
 package net.threader.odinclient.internal.api.event;
 
-public abstract class EventListener<E extends IEvent> {
-    private Class<E> listenedEvent;
+public abstract class EventListener {
+    private Class<? extends IEvent>[] listenedEvents;
 
-    public EventListener(Class<E> listenedEvent) {
-        this.listenedEvent = listenedEvent;
+    @SafeVarargs
+    public EventListener(Class<? extends IEvent>... listenedEvents) {
+        this.listenedEvents = listenedEvents;
     }
 
-    public Class<E> getListenedEvent() {
-        return listenedEvent;
+    public Class<? extends IEvent>[] getListenedEvent() {
+        return listenedEvents;
     }
 }

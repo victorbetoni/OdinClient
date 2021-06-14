@@ -4,6 +4,7 @@
   "package": "net.threader.odinclient.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BlockModelRendererMixin",
     "ClientPlayerEntityMixin",
     "KeyboardMixin",
     "RebuildTaskMixin",

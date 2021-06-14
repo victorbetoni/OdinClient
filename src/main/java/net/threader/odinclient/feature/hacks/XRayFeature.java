@@ -3,9 +3,11 @@ package net.threader.odinclient.feature.hacks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
+import net.threader.odinclient.event.BlockFacesForceRender;
 import net.threader.odinclient.event.BlockTesselateEvent;
-import net.threader.odinclient.event.BlockTraluscenscyDefineEvent;
+import net.threader.odinclient.event.BlockTranslucencyDefineEvent;
 import net.threader.odinclient.feature.ConfigurableAbstractFeature;
+import net.threader.odinclient.internal.api.event.IState;
 import net.threader.odinclient.keybind.Keybindable;
 import net.threader.odinclient.internal.api.event.EventListener;
 import net.threader.odinclient.internal.api.event.Handler;
@@ -96,10 +98,10 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
         return "$odinclient toggle " + ID;
     }
 
-    public static class BlockRenderHandler extends EventListener<BlockTesselateEvent> {
+    public static class BlockRenderHandler extends EventListener {
 
         public BlockRenderHandler() {
-            super(BlockTesselateEvent.class);
+            super(BlockTesselateEvent.class, BlockTranslucencyDefineEvent.class, BlockFacesForceRender.class);
         }
 
         @Handler
@@ -112,11 +114,20 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
         }
 
         @Handler
-        public void handleOpacity(BlockTraluscenscyDefineEvent event) {
+        public void handleOpacity(BlockTranslucencyDefineEvent event) {
             if(AbstractFeature.instance(XRayFeature.class).isActivated()
                     && !AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getBlock()).toString())) {
                 event.setCanceled(true);
+            }
+        }
+
+        @Handler
+        public void handleFaceRender(BlockFacesForceRender event) {
+            if(AbstractFeature.instance(XRayFeature.class).isActivated()
+                    && AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
+                    .contains(Registry.BLOCK.getId(event.getBlock()).toString())) {
+                event.setState(IState.State.ACCEPTED);
             }
         }
 

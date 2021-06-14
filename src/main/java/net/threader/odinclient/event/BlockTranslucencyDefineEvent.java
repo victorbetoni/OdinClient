@@ -4,12 +4,12 @@ import net.minecraft.block.Block;
 import net.threader.odinclient.internal.api.event.ICancelable;
 import net.threader.odinclient.internal.api.event.IEvent;
 
-public class BlockTraluscenscyDefineEvent implements IEvent, ICancelable {
+public class BlockTranslucencyDefineEvent implements IEvent, ICancelable {
 
     private Block block;
     private boolean canceled;
 
-    public BlockTraluscenscyDefineEvent(Block block) {
+    public BlockTranslucencyDefineEvent(Block block) {
         this.block = block;
     }
 

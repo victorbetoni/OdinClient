@@ -3,12 +3,13 @@ package net.threader.odinclient.event;
 import net.minecraft.block.Block;
 import net.threader.odinclient.internal.api.event.ICancelable;
 import net.threader.odinclient.internal.api.event.IEvent;
+import net.threader.odinclient.internal.api.event.IState;
 
-public class BlockFacesRenderEvent implements IEvent, ICancelable {
+public class BlockFacesForceRender implements IEvent, IState {
     private Block block;
-    private boolean canceled;
+    private State state = State.IGNORED;
 
-    public BlockFacesRenderEvent(Block block) {
+    public BlockFacesForceRender(Block block) {
         this.block = block;
     }
 
@@ -17,12 +18,12 @@ public class BlockFacesRenderEvent implements IEvent, ICancelable {
     }
 
     @Override
-    public void setCanceled(boolean canceled) {
-        this.canceled = canceled;
+    public State state() {
+        return state;
     }
 
     @Override
-    public boolean isCanceled() {
-        return canceled;
+    public void setState(State st) {
+        state = st;
     }
 }

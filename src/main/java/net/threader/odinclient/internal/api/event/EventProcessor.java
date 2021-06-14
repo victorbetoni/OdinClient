@@ -12,10 +12,12 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 public class EventProcessor {
 
-    private Multimap<Class<? extends IEvent>, EventListener<? extends IEvent>> handlers = ArrayListMultimap.create();
+    private Multimap<Class<? extends IEvent>, EventListener> handlers = ArrayListMultimap.create();
 
-    public void register(EventListener<? extends IEvent> listener) {
-        handlers.put(listener.getListenedEvent(), listener);
+    public void register(EventListener listener) {
+        Arrays.asList(listener.getListenedEvent()).forEach(x -> {
+            handlers.put(x, listener);
+        });
     }
 
     public <E extends IEvent> void post(E event) {
