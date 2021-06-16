@@ -34,10 +34,12 @@ public class FeatureManager {
         }
         Arrays.asList(features).forEach(featureClass -> {
             try {
-                Constructor<T> constructor = featureClass.getConstructor(boolean.class);
+                Constructor<T> constructor = featureClass.getConstructor(String.class, String.class, boolean.class);
                 Feature featureAnnotation = featureClass.getAnnotation(Feature.class);
                 if(featureAnnotation != null) {
-                    T feature = constructor.newInstance(stateMap.get(featureAnnotation.id()));
+                    String id = featureAnnotation.id();
+                    String desc = featureAnnotation.description();
+                    T feature = constructor.newInstance(id, desc, stateMap.get(id));
                     loadedFeatures.put(featureAnnotation.id(), feature);
                     if(feature instanceof Keybindable) {
                         Keybindable bindable = (Keybindable) feature;

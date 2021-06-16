@@ -29,10 +29,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
-@Feature(id = XRayFeature.ID)
+@Feature(id = "xray", description = "See through the wall!")
 public class XRayFeature extends ConfigurableAbstractFeature implements Keybindable {
 
-    public static final String ID = "xray";
     private final Set<String> visibleBlocks = new HashSet<>();
     private final Supplier<JSONObject> BLOCKS_JSON_FACTORY = () -> {
         JSONObject jsonObject = new JSONObject();
@@ -42,8 +41,8 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
         return jsonObject;
     };
 
-    public XRayFeature(boolean activated) {
-        super(ID, "See through the wall!", activated);
+    public XRayFeature(String id, String description, boolean activated) {
+        super(id, description, activated);
     }
 
     public Set<String> getVisibleBlocks() {
@@ -95,7 +94,7 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
 
     @Override
     public String onKey() {
-        return "$odinclient toggle " + ID;
+        return "$odinclient toggle " + id;
     }
 
     public static class BlockRenderHandler extends EventListener {
