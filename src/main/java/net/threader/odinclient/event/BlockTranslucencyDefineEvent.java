@@ -1,10 +1,10 @@
 package net.threader.odinclient.event;
 
 import net.minecraft.block.Block;
-import net.threader.odinclient.internal.api.event.ICancelable;
-import net.threader.odinclient.internal.api.event.IEvent;
+import net.threader.signal.Event;
+import net.threader.signal.ICancellable;
 
-public class BlockTranslucencyDefineEvent implements IEvent, ICancelable {
+public class BlockTranslucencyDefineEvent extends Event implements ICancellable {
 
     private Block block;
     private boolean canceled;
@@ -18,12 +18,12 @@ public class BlockTranslucencyDefineEvent implements IEvent, ICancelable {
     }
 
     @Override
-    public void setCanceled(boolean bool) {
-        this.canceled = bool;
+    public boolean isCancelled() {
+        return canceled;
     }
 
     @Override
-    public boolean isCanceled() {
-        return canceled;
+    public void setCancelled(boolean b) {
+        canceled = b;
     }
 }

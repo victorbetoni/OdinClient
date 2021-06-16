@@ -1,13 +1,9 @@
 package net.threader.odinclient.feature.modules;
 
-import net.minecraft.client.world.ClientWorld;
 import net.threader.odinclient.feature.AbstractFeature;
-import net.threader.odinclient.feature.ConfigurableAbstractFeature;
 import net.threader.odinclient.feature.Feature;
 import net.threader.odinclient.keybind.Keybindable;
 import org.lwjgl.glfw.GLFW;
-
-import java.io.File;
 
 @Feature(id = "kill-aura", description = "Hit everyone and everything around you")
 public class KillAuraModule extends AbstractFeature implements Keybindable {

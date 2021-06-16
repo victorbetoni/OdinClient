@@ -5,10 +5,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.BlockPos;
-import net.threader.odinclient.internal.api.event.ICancelable;
-import net.threader.odinclient.internal.api.event.IEvent;
+import net.threader.signal.Event;
+import net.threader.signal.ICancellable;
 
-public class BlockTesselateEvent implements IEvent, ICancelable {
+public class BlockTesselateEvent extends Event implements ICancellable {
     private boolean canceled;
     private BlockState blockState;
     private BlockPos blockPos;
@@ -45,12 +45,12 @@ public class BlockTesselateEvent implements IEvent, ICancelable {
     }
 
     @Override
-    public void setCanceled(boolean bool) {
-        this.canceled = bool;
+    public boolean isCancelled() {
+        return canceled;
     }
 
     @Override
-    public boolean isCanceled() {
-        return canceled;
+    public void setCancelled(boolean b) {
+        canceled = b;
     }
 }

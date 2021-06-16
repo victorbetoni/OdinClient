@@ -18,7 +18,7 @@ public class TerrainRenderContextMixin {
     public void injectedTesselateBlock(BlockState blockState, BlockPos blockPos, BakedModel model, MatrixStack matrixStack, CallbackInfoReturnable<Boolean> cir) {
         BlockTesselateEvent event = new BlockTesselateEvent(blockState, blockPos, model, matrixStack);
         OdinClient.INSTANCE.getEventProcessor().post(event);
-        if(event.isCanceled()) {
+        if(event.isCancelled()) {
             cir.setReturnValue(false);
         }
     }

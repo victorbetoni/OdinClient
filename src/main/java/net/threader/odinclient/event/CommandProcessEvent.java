@@ -1,8 +1,8 @@
 package net.threader.odinclient.event;
 
-import net.threader.odinclient.internal.api.event.IEvent;
+import net.threader.signal.Event;
 
-public class CommandProcessEvent implements IEvent {
+public class CommandProcessEvent extends Event {
     private String command;
 
     public CommandProcessEvent(String command) {

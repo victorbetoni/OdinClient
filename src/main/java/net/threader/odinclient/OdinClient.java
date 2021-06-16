@@ -1,12 +1,13 @@
 package net.threader.odinclient;
 
 import net.minecraft.client.MinecraftClient;
+import net.threader.odinclient.client.ClientPlayerInterface;
 import net.threader.odinclient.command.ClientCommands;
 import net.threader.odinclient.internal.api.command.CommandProcessor;
-import net.threader.odinclient.internal.api.event.EventProcessor;
 import net.threader.odinclient.feature.FeatureManager;
 import net.threader.odinclient.feature.modules.XRayModule;
-import net.threader.odinclient.keybind.KeybindManager;;
+import net.threader.odinclient.keybind.KeybindManager;
+import net.threader.signal.EventProcessor;;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,8 @@ public enum OdinClient {
     private KeybindManager keybindManager = new KeybindManager();
     private FeatureManager featureManager = new FeatureManager();
 
+    private ClientPlayerInterface client = new ClientPlayerInterface(MinecraftClient.getInstance().player.getUuid());
+
     @SuppressWarnings("all")
     public void initialize() {
         minecraftFolder = MinecraftClient.getInstance().runDirectory;
@@ -40,6 +43,7 @@ public enum OdinClient {
 
         eventProcessor.register(new CommandProcessor.Distributor());
         eventProcessor.register(keybindManager);
+        eventProcessor.register(client);
 
         commandProcessor.COMMAND_REGISTRY.put("toggle", new ClientCommands.ToggleFeatureCommand());
     }

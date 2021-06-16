@@ -16,7 +16,7 @@ public class ClientConnectionMixin {
     public void injectOnRead(ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo ci) {
         PacketEvent.S2C event = new PacketEvent.S2C(packet);
         OdinClient.INSTANCE.getEventProcessor().post(event);
-        if(event.isCanceled()) {
+        if(event.isCancelled()) {
             ci.cancel();
         }
     }
@@ -25,7 +25,7 @@ public class ClientConnectionMixin {
     public void injectOnSend(Packet<?> packet, CallbackInfo ci) {
         PacketEvent.C2S event = new PacketEvent.C2S(packet);
         OdinClient.INSTANCE.getEventProcessor().post(event);
-        if(event.isCanceled()) {
+        if(event.isCancelled()) {
             ci.cancel();
         }
     }

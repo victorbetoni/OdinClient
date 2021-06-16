@@ -3,16 +3,15 @@ package net.threader.odinclient.feature.modules;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.registry.Registry;
 import net.threader.odinclient.OdinClient;
-import net.threader.odinclient.event.BlockFacesForceRender;
+import net.threader.odinclient.event.BlockFacesForceRenderEvent;
 import net.threader.odinclient.event.BlockTesselateEvent;
 import net.threader.odinclient.event.BlockTranslucencyDefineEvent;
 import net.threader.odinclient.feature.ConfigurableAbstractFeature;
-import net.threader.odinclient.internal.api.event.IState;
 import net.threader.odinclient.keybind.Keybindable;
-import net.threader.odinclient.internal.api.event.EventListener;
-import net.threader.odinclient.internal.api.event.Handler;
 import net.threader.odinclient.feature.AbstractFeature;
 import net.threader.odinclient.feature.Feature;
+import net.threader.signal.EventListener;
+import net.threader.signal.Handler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -97,18 +96,14 @@ public class XRayModule extends ConfigurableAbstractFeature implements Keybindab
         return "$odinclient toggle " + id;
     }
 
-    public static class BlockRenderHandler extends EventListener {
-
-        public BlockRenderHandler() {
-            super(BlockTesselateEvent.class, BlockTranslucencyDefineEvent.class, BlockFacesForceRender.class);
-        }
+    public static class BlockRenderHandler implements EventListener {
 
         @Handler
         public void handleRender(BlockTesselateEvent event) {
             if(AbstractFeature.instance(XRayModule.class).isActivated()
                     && !AbstractFeature.instance(XRayModule.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getState().getBlock()).toString())) {
-                event.setCanceled(true);
+                event.setCancelled(true);
             }
         }
 
@@ -117,16 +112,16 @@ public class XRayModule extends ConfigurableAbstractFeature implements Keybindab
             if(AbstractFeature.instance(XRayModule.class).isActivated()
                     && !AbstractFeature.instance(XRayModule.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getBlock()).toString())) {
-                event.setCanceled(true);
+                event.setCancelled(true);
             }
         }
 
         @Handler
-        public void handleFaceRender(BlockFacesForceRender event) {
+        public void handleFaceRender(BlockFacesForceRenderEvent event) {
             if(AbstractFeature.instance(XRayModule.class).isActivated()
                     && AbstractFeature.instance(XRayModule.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getBlock()).toString())) {
-                event.setState(IState.State.ACCEPTED);
+                event.setState(BlockFacesForceRenderEvent.State.ACCEPTED);
             }
         }
 

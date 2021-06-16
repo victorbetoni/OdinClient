@@ -1,8 +1,8 @@
 package net.threader.odinclient.internal.api.command;
 
-import net.threader.odinclient.internal.api.event.EventListener;
-import net.threader.odinclient.internal.api.event.Handler;
 import net.threader.odinclient.event.CommandProcessEvent;
+import net.threader.signal.EventListener;
+import net.threader.signal.Handler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,10 +14,7 @@ public class CommandProcessor {
 
     public static final Map<String, CommandRunner> COMMAND_REGISTRY = new HashMap<>();
 
-    public static class Distributor extends EventListener {
-        public Distributor() {
-            super(CommandProcessEvent.class);
-        }
+    public static class Distributor implements EventListener {
 
         @Handler
         public void distribute(CommandProcessEvent event) {

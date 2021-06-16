@@ -1,12 +1,12 @@
 package net.threader.odinclient.event.network;
 
 import net.minecraft.network.Packet;
-import net.threader.odinclient.internal.api.event.ICancelable;
-import net.threader.odinclient.internal.api.event.IEvent;
+import net.threader.signal.Event;
+import net.threader.signal.ICancellable;
 
 public class PacketEvent {
 
-    public static class C2S implements IEvent, ICancelable {
+    public static class C2S extends Event implements ICancellable {
 
         private final Packet<?> packet;
         private boolean cancelled;
@@ -20,17 +20,17 @@ public class PacketEvent {
         }
 
         @Override
-        public void setCanceled(boolean bool) {
-            cancelled = bool;
+        public boolean isCancelled() {
+            return cancelled;
         }
 
         @Override
-        public boolean isCanceled() {
-            return cancelled;
+        public void setCancelled(boolean b) {
+            cancelled = b;
         }
     }
 
-    public static class S2C implements IEvent, ICancelable {
+    public static class S2C extends Event implements ICancellable {
 
         private final Packet<?> packet;
         private boolean cancelled;
@@ -43,13 +43,12 @@ public class PacketEvent {
             return packet;
         }
 
-        @Override
-        public void setCanceled(boolean bool) {
+        public void setCancelled(boolean bool) {
             cancelled = bool;
         }
 
         @Override
-        public boolean isCanceled() {
+        public boolean isCancelled() {
             return cancelled;
         }
     }

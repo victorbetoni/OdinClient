@@ -2,8 +2,8 @@ package net.threader.odinclient.keybind;
 
 import net.minecraft.client.MinecraftClient;
 import net.threader.odinclient.event.KeyPressedEvent;
-import net.threader.odinclient.internal.api.event.EventListener;
-import net.threader.odinclient.internal.api.event.Handler;
+import net.threader.signal.EventListener;
+import net.threader.signal.Handler;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -16,13 +16,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-public class KeybindManager extends EventListener {
+public class KeybindManager implements EventListener {
 
     private Map<Integer, String> keybindMap = new HashMap<>();
-
-    public KeybindManager() {
-        super(KeyPressedEvent.class);
-    }
 
     public void loadKeybinds(File file) {
         try (FileReader reader = new FileReader(file)) {

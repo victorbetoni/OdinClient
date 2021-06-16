@@ -27,7 +27,7 @@ public class RebuildTaskMixin {
             Block block = Objects.requireNonNull(region.getBlockEntity(pos)).getCachedState().getBlock();
             BlockTranslucencyDefineEvent event = new BlockTranslucencyDefineEvent(block);
             OdinClient.INSTANCE.getEventProcessor().post(event);
-            if(!event.isCanceled()) {
+            if(!event.isCancelled()) {
                 chunkOcclusionDataBuilder.closed.set(ChunkOcclusionDataBuilder.pack(pos), true);
                 --chunkOcclusionDataBuilder.openCount;
             }
