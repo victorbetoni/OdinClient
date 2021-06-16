@@ -5,7 +5,7 @@ import net.threader.odinclient.command.ClientCommands;
 import net.threader.odinclient.internal.api.command.CommandProcessor;
 import net.threader.odinclient.internal.api.event.EventProcessor;
 import net.threader.odinclient.feature.FeatureManager;
-import net.threader.odinclient.feature.modules.XRayFeature;
+import net.threader.odinclient.feature.modules.XRayModule;
 import net.threader.odinclient.keybind.KeybindManager;;
 
 import java.io.File;
@@ -34,7 +34,7 @@ public enum OdinClient {
         odinFolder = createIfNotExist(new File(minecraftFolder.toPath().normalize().resolve("odinclient").toString()), true, null, null);
         featureConfigFolder = createIfNotExist(new File(odinFolder, "configs"), true, null, null);
         featuresStateFile = createIfNotExist(new File(odinFolder, "features.json"), false,
-                (file) -> featureManager.loadAll(file, XRayFeature.class), null);
+                (file) -> featureManager.loadAll(file, XRayModule.class), null);
         keybindsFile = createIfNotExist(new File(odinFolder, "keybinds.json"), false,
                 (file) -> keybindManager.loadKeybinds(file), null);
 

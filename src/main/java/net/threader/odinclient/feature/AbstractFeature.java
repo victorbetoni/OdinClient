@@ -31,9 +31,16 @@ public abstract class AbstractFeature {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+        if(activated) {
+            this.handleEnable();
+        } else {
+            this.handleDisable();
+        }
     }
 
-    public void onLoad() {}
-
     public void reload() {}
+
+    public void handleLoad() {}
+    public void handleDisable() {}
+    public void handleEnable() {}
 }

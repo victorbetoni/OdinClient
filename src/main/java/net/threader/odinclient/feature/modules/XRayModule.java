@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 @Feature(id = "xray", description = "See through the wall!")
-public class XRayFeature extends ConfigurableAbstractFeature implements Keybindable {
+public class XRayModule extends ConfigurableAbstractFeature implements Keybindable {
 
     private final Set<String> visibleBlocks = new HashSet<>();
     private final Supplier<JSONObject> BLOCKS_JSON_FACTORY = () -> {
@@ -41,7 +41,7 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
         return jsonObject;
     };
 
-    public XRayFeature(String id, String description, boolean activated) {
+    public XRayModule(String id, String description, boolean activated) {
         super(id, description, activated);
     }
 
@@ -50,7 +50,7 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
     }
 
     @Override
-    public void onLoad() {
+    public void handleLoad() {
         configurationFile = OdinClient.INSTANCE.createIfNotExist(new File(OdinClient.INSTANCE.getFeatureConfigFolder(), "xray.json"), false,
                 null,
                 (file) -> visibleBlocks.addAll(Registry.BLOCK.getEntries().stream()
@@ -105,8 +105,8 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
 
         @Handler
         public void handleRender(BlockTesselateEvent event) {
-            if(AbstractFeature.instance(XRayFeature.class).isActivated()
-                    && !AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
+            if(AbstractFeature.instance(XRayModule.class).isActivated()
+                    && !AbstractFeature.instance(XRayModule.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getState().getBlock()).toString())) {
                 event.setCanceled(true);
             }
@@ -114,8 +114,8 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
 
         @Handler
         public void handleOpacity(BlockTranslucencyDefineEvent event) {
-            if(AbstractFeature.instance(XRayFeature.class).isActivated()
-                    && !AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
+            if(AbstractFeature.instance(XRayModule.class).isActivated()
+                    && !AbstractFeature.instance(XRayModule.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getBlock()).toString())) {
                 event.setCanceled(true);
             }
@@ -123,8 +123,8 @@ public class XRayFeature extends ConfigurableAbstractFeature implements Keybinda
 
         @Handler
         public void handleFaceRender(BlockFacesForceRender event) {
-            if(AbstractFeature.instance(XRayFeature.class).isActivated()
-                    && AbstractFeature.instance(XRayFeature.class).getVisibleBlocks()
+            if(AbstractFeature.instance(XRayModule.class).isActivated()
+                    && AbstractFeature.instance(XRayModule.class).getVisibleBlocks()
                     .contains(Registry.BLOCK.getId(event.getBlock()).toString())) {
                 event.setState(IState.State.ACCEPTED);
             }

@@ -39,13 +39,14 @@ public class FeatureManager {
                 if(featureAnnotation != null) {
                     String id = featureAnnotation.id();
                     String desc = featureAnnotation.description();
-                    T feature = constructor.newInstance(id, desc, stateMap.get(id));
+                    boolean loaded = stateMap.get(id);
+                    T feature = constructor.newInstance(id, desc, loaded);
                     loadedFeatures.put(featureAnnotation.id(), feature);
                     if(feature instanceof Keybindable) {
                         Keybindable bindable = (Keybindable) feature;
                         OdinClient.INSTANCE.getKeybindManager().register(bindable.getKey(), bindable.onKey());
                     }
-                    feature.onLoad();
+                    feature.handleLoad();
                 }
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
